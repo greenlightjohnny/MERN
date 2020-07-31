@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import { mongoURI } from "./config/keys.js";
+import items from "./routes/api/items.js";
 //import { json } from "body-parser";
 // Removed since body parser is now included in express
 // instead of:
@@ -16,6 +17,8 @@ mongoose
   .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MONGO Connected"))
   .catch((err) => console.log(err));
+
+app.use("/api/items", items);
 
 const port = process.env.PORT || 5000;
 
