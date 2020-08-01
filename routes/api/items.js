@@ -21,4 +21,14 @@ router.post("/", (req, res) => {
   newItem.save().then((item) => res.json(item));
 });
 
+//// @route Delete api/items
+// @desc Delete things
+// @access Public
+router.delete("/", (req, res) => {
+  const newItem = new Item({
+    name: req.body.name,
+  });
+  newItem.save().then((item) => res.json(item));
+});
+
 export default router;
