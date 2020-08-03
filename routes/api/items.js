@@ -24,11 +24,10 @@ router.post("/", (req, res) => {
 //// @route Delete api/items
 // @desc Delete things
 // @access Public
-router.delete("/", (req, res) => {
-  const newItem = new Item({
-    name: req.body.name,
-  });
-  newItem.save().then((item) => res.json(item));
+router.delete("/:id", (req, res) => {
+  Item.findById(req.params.id)
+    .then((item) => item.remove().then(() => res.json({ success: true })))
+    .catch((err) => res.status(404).json({ success: false }));
 });
 
 export default router;
