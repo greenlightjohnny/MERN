@@ -11,7 +11,6 @@ class ShoppingList extends Component {
   }
 
   onDeleteClick = (id) => {
-    console.log("#############", id);
     this.props.deleteItem(id);
   };
   render() {
