@@ -4,10 +4,11 @@ import User from "../../models/user.js";
 import bcrypt from "bcryptjs";
 import config from "config";
 import jwt from "jsonwebtoken";
-
+import auth from "../../middleware/auth.js";
+const { response } = express;
 //// @route POST api/auth
 // @desc Auth user
-// @access Public
+// @access private
 router.post("/", (req, res) => {
   //res.send("register");
   const { email, password } = req.body;
@@ -23,7 +24,7 @@ router.post("/", (req, res) => {
 
     //validate password
     bcrypt.compare(password, user.password).then((isMatch) => {
-      if (!ismatch) return res.status(400).json({ msg: "Invalid credentials" });
+      if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
 
       jwt.sign(
         { id: user.id },
@@ -42,6 +43,14 @@ router.post("/", (req, res) => {
         }
       );
     });
+  });
+  //// @route get api/auth/user
+  // @desc Get user data
+  // @access Private
+  router.get("/user", auth, (req, res) => {
+    User.findById(req.user.id)
+      .select("-password")
+      .then((user) => res.json(user));
   });
 });
 

@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
 import Item from "../../models/item.js";
+import auth from "../../middleware/auth.js";
 
 //// @route GET api/items
 // @desc Get all items
@@ -13,8 +14,8 @@ router.get("/", (req, res) => {
 
 //// @route POST api/items
 // @desc Create a post
-// @access Public
-router.post("/", (req, res) => {
+// @access Private
+router.post("/", auth, (req, res) => {
   const newItem = new Item({
     name: req.body.name,
   });
@@ -23,8 +24,8 @@ router.post("/", (req, res) => {
 
 //// @route Delete api/items
 // @desc Delete things
-// @access Public
-router.delete("/:id", (req, res) => {
+// @access Private
+router.delete("/:id", auth, (req, res) => {
   Item.findById(req.params.id)
     .then((item) => item.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
