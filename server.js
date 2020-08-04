@@ -1,21 +1,23 @@
 import express from "express";
 import mongoose from "mongoose";
-import { mongoURI } from "./config/keys.js";
+//import { mongoURI } from "./config/default.json";
 import items from "./routes/api/items.js";
 import users from "./routes/api/users.js";
 import path from "path";
+import config from "config";
 //import { json } from "body-parser";
 // Removed since body parser is now included in express
 // instead of:
 // app.use(json())
 // app.use(express.json())
+const db = config.get("mongoURI");
 
 const app = express();
 
 app.use(express.json());
 
 mongoose
-  .connect(mongoURI, {
+  .connect(db, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,

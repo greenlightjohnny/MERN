@@ -1,2 +1,0 @@
-export const mongoURI =
-  "mongodb+srv://jim:jim123@cluster0.dq6lk.mongodb.net/MERN?retryWrites=true&w=majority";
