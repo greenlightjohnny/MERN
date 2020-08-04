@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 //import { mongoURI } from "./config/default.json";
 import items from "./routes/api/items.js";
 import users from "./routes/api/users.js";
+import auth from "./routes/api/auth.js";
 import path from "path";
 import config from "config";
 //import { json } from "body-parser";
